@@ -1,6 +1,21 @@
 .array-bar {
     display: inline-block;
-    width: 10px;
+    width: 2px;
     margin: 0 1px;
+    background-color: blue;
+}
+
+.btn {
+    padding: 10px;
+    margin: 10px;
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
     background-color: blue;
 }
