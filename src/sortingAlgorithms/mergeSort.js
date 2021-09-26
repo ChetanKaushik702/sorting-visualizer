@@ -2,8 +2,9 @@
 const mergeSortHandler = (array) => {
     const auxiliaryArray = [...array]
     const animations = []
-    console.log(array)
     mergeSort(array, 0, array.length - 1, auxiliaryArray, animations)
+    console.log(auxiliaryArray)
+    console.log(array)
     return animations
 }
 // merge-sort

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import './SortingVisualizer.css'
 import mergeSortHandler from '../sortingAlgorithms/mergeSort'
+import quickSortHandler from '../sortingAlgorithms/quickSort'
 
 function SortingVisualizer() {
 
@@ -54,18 +55,92 @@ function SortingVisualizer() {
               setTimeout(() => {
                 barOneStyle.backgroundColor = color;
                 barTwoStyle.backgroundColor = color;
-              }, i * ANIMATION_SPEED_MS);
-            } else {
-              setTimeout(() => {
+            }, i * ANIMATION_SPEED_MS);
+        } else {
+            setTimeout(() => {
                 const [barOneIdx, newHeight] = animations[i];
                 const barOneStyle = arrayBars[barOneIdx].style;
                 barOneStyle.height = `${newHeight}px`;
-              }, i * ANIMATION_SPEED_MS);
+            }, i * ANIMATION_SPEED_MS);
+        }
+    }
+}
+
+const callquickSort = () => {
+    const animations = quickSortHandler(array)
+    const arrayBars = document.getElementsByClassName('array-bar');
+
+    for (let i = 0; i < animations.length; i++) {
+        const operation = animations[i][2]
+
+        // comparison
+        if (operation === 'comparison') {
+            const [barOneIdx, barTwoIdx] = animations[i]
+            const barOneStyle = arrayBars[barOneIdx].style
+            const barTwoStyle = arrayBars[barTwoIdx].style
+
+            const color = animations[i][3] === 0 ? 'red' : 'blue'
+            setTimeout(() => {
+                barOneStyle.backgroundColor = color
+                barTwoStyle.backgroundColor = color
+            }, i * ANIMATION_SPEED_MS)
+        }
+
+        // swapping
+        else if (operation === 'swapping') {
+            const decider = animations[i][3]
+            if (decider === 0) {
+                const [barOneIdx, barTwoIdx] = animations[i]
+                const barOneStyle = arrayBars[barOneIdx].style
+                const barTwoStyle = arrayBars[barTwoIdx].style
+                
+                const color = 'orange'
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color
+                    barTwoStyle.backgroundColor = color
+                }, i * ANIMATION_SPEED_MS)
             }
+            else if (decider === 1) {
+                const [barOneIdx, barTwoIdx] = animations[i]
+                const barOneStyle = arrayBars[barOneIdx].style
+                const barTwoStyle = arrayBars[barTwoIdx].style
+
+                const color = 'blue'
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color
+                    barTwoStyle.backgroundColor = color
+                }, i * ANIMATION_SPEED_MS)
+            }
+            else if (decider === 2) {
+                const [barIdx, height] = animations[i]
+                const barOneStyle = arrayBars[barIdx].style
+                
+                setTimeout(() => {
+                    barOneStyle.height = `${height}px`
+                }, i * ANIMATION_SPEED_MS)
+            }
+            else {
+                const [barIdx, height] = animations[i]
+                const barOneStyle = arrayBars[barIdx].style
+                
+                setTimeout(() => {
+                    barOneStyle.height = `${height}px`
+                }, i * ANIMATION_SPEED_MS)
+            }
+        }
+
+        // updation
+        else {
+            const [barIdx, height, ,decider] = animations[i]
+            const bar = arrayBars[barIdx].style
+            setTimeout(() => {
+                if (decider === 0) bar.backgroundColor = 'green'
+                bar.height = `${height}px`
+            }, i * ANIMATION_SPEED_MS);
         }
     }
 
-    
+}
 
     return (
         <>
@@ -81,6 +156,7 @@ function SortingVisualizer() {
         </div>
         <button className="btn" onClick={resetArray}>Generate new array</button>
         <button className="btn" onClick={callmergeSort}>Merge sort</button>
+        <button className="btn" onClick={callquickSort}>Quick sort</button>
         </>
     )
 }
