@@ -4,13 +4,14 @@ import mergeSortHandler from '../sortingAlgorithms/mergeSort'
 import quickSortHandler from '../sortingAlgorithms/quickSort'
 import insertionSortHandler from '../sortingAlgorithms/insertionSort'
 import selectionSortHandler from '../sortingAlgorithms/selectionSort'
+import heapSortHandler from '../sortingAlgorithms/heapSort'
 
 function SortingVisualizer() {
 
     const PRIMARY_COLOR = 'green'
     const SECONDARY_COLOR = 'red'
     const ANIMATION_SPEED_MS = 1
-    const NUMBER_OF_ARRAY_BARS = 310
+    const NUMBER_OF_ARRAY_BARS = 370
 
     const [array, setArray] = useState([])
 
@@ -203,6 +204,53 @@ function SortingVisualizer() {
         }
     }
 
+    const callheapSort = () => {
+        const animations = heapSortHandler(array)
+        const arrayBars = document.getElementsByClassName('array-bar');
+
+        for (let i = 0; i < animations.length; i++) {
+            if (animations[i].length === 3) {
+                const [barIdx, ,decoder] = animations[i]
+                const barStyle = arrayBars[barIdx].style
+                const color = decoder === 0 ? 'red' : 'blue'
+                setTimeout(() => {
+                    barStyle.backgroundColor = color
+                }, i * ANIMATION_SPEED_MS)
+            } else {
+                const [, , operation, decoder] = animations[i]
+
+                if (operation === 'swapping') {
+                    if (decoder === 0 || decoder === 1) {
+                        const [barOneIdx, barTwoIdx, ,] = animations[i]
+                        const barOneStyle = arrayBars[barOneIdx].style
+                        const barTwoStyle = arrayBars[barTwoIdx].style
+                        const color = decoder === 0 ? 'red' : 'blue'
+
+                        setTimeout(() => {
+                            barOneStyle.backgroundColor = color
+                            barTwoStyle.backgroundColor = color
+                        }, i * ANIMATION_SPEED_MS);
+                    } else {
+                        const [barIdx, height, ,] = animations[i]
+                        const barStyle = arrayBars[barIdx].style
+
+                        setTimeout(() => {
+                            barStyle.height = `${height}px`
+                        }, i * ANIMATION_SPEED_MS);
+                    }
+                } else {
+                    const [barIdx, height, ,decoder] = animations[i]
+                    const barStyle = arrayBars[barIdx].style
+
+                    setTimeout(() => {
+                        barStyle.height = `${height}px`
+                        if (decoder === 1) barStyle.backgroundColor = 'green'
+                    }, i * ANIMATION_SPEED_MS);
+                }
+            }
+        }
+    }
+
     return (
         <>
         <div>
@@ -218,6 +266,7 @@ function SortingVisualizer() {
         <button className="btn" onClick={resetArray}>Generate new array</button>
         <button className="btn" onClick={callmergeSort}>Merge sort</button>
         <button className="btn" onClick={callquickSort}>Quick sort</button>
+        <button className="btn" onClick={callheapSort}>Heap sort</button>
         <button className="btn" onClick={callinsertionSort}>Insertion sort</button>
         <button className="btn" onClick={callselectionSort}>Selection sort</button>
         </>
