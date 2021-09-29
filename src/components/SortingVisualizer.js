@@ -3,6 +3,7 @@ import './SortingVisualizer.css'
 import mergeSortHandler from '../sortingAlgorithms/mergeSort'
 import quickSortHandler from '../sortingAlgorithms/quickSort'
 import insertionSortHandler from '../sortingAlgorithms/insertionSort'
+import selectionSortHandler from '../sortingAlgorithms/selectionSort'
 
 function SortingVisualizer() {
 
@@ -173,6 +174,34 @@ function SortingVisualizer() {
         }
     }
 
+    const callselectionSort = () => {
+        const animations = selectionSortHandler(array)
+        const arrayBars = document.getElementsByClassName('array-bar');
+
+        for (let i = 0; i < animations.length; i++) {
+            const operation = animations[i][2]
+            if (operation === 'comparison') {
+                const [barOneIdx, barTwoIdx, ,decoder] = animations[i]
+                const barOneStyle = arrayBars[barOneIdx].style
+                const barTwoStyle = arrayBars[barTwoIdx].style
+
+                const color = decoder === 0 ? 'red' : 'blue'
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color
+                    barTwoStyle.backgroundColor = color
+                }, i * ANIMATION_SPEED_MS);
+            }
+            else {
+                const [barIdx, height, ,decoder] = animations[i]
+                const barStyle = arrayBars[barIdx].style
+
+                setTimeout(() => {
+                    barStyle.height = `${height}px`
+                    if (decoder === 0)  barStyle.backgroundColor = 'green'
+                }, i * ANIMATION_SPEED_MS);
+            }
+        }
+    }
 
     return (
         <>
@@ -190,6 +219,7 @@ function SortingVisualizer() {
         <button className="btn" onClick={callmergeSort}>Merge sort</button>
         <button className="btn" onClick={callquickSort}>Quick sort</button>
         <button className="btn" onClick={callinsertionSort}>Insertion sort</button>
+        <button className="btn" onClick={callselectionSort}>Selection sort</button>
         </>
     )
 }
