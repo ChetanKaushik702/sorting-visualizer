@@ -1,8 +1,6 @@
 const heapSortHandler = (array) => {
     const animations = []
-    console.log(array)
     heapSort(array, animations)
-    console.log(array)
     return animations
 }
 
@@ -39,7 +37,7 @@ const maxHeapify = (array, N, i, animations) => {
         
         animations.push([i, array[i], 'swapping', 2])
         animations.push([largest, array[largest], 'swapping', 3])
-        
+
         animations.push([i, largest, 'swapping', 1])
 
         maxHeapify(array, N, largest, animations)

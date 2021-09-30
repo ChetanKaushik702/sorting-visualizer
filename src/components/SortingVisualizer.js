@@ -263,12 +263,15 @@ function SortingVisualizer() {
                 })
             }
         </div>
-        <button className="btn" onClick={resetArray}>Generate new array</button>
-        <button className="btn" onClick={callmergeSort}>Merge sort</button>
-        <button className="btn" onClick={callquickSort}>Quick sort</button>
-        <button className="btn" onClick={callheapSort}>Heap sort</button>
-        <button className="btn" onClick={callinsertionSort}>Insertion sort</button>
-        <button className="btn" onClick={callselectionSort}>Selection sort</button>
+        <hr/>
+        <div>
+            <button className="btn" onClick={resetArray}>Generate new array</button>
+            <button className="btn" onClick={callmergeSort}>Merge sort</button>
+            <button className="btn" onClick={callquickSort}>Quick sort</button>
+            <button className="btn" onClick={callheapSort}>Heap sort</button>
+            <button className="btn" onClick={callinsertionSort}>Insertion sort</button>
+            <button className="btn" onClick={callselectionSort}>Selection sort</button>
+        </div>
         </>
     )
 }
