@@ -253,7 +253,7 @@ function SortingVisualizer() {
 
     return (
         <>
-        <div>
+        <div className="container">
             {
                 array.map((value, index) => {
                     return (
@@ -264,7 +264,7 @@ function SortingVisualizer() {
             }
         </div>
         <hr/>
-        <div>
+        <div className="wrapper">
             <button className="btn" onClick={resetArray}>Generate new array</button>
             <button className="btn" onClick={callmergeSort}>Merge sort</button>
             <button className="btn" onClick={callquickSort}>Quick sort</button>

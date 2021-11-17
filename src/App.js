@@ -1,6 +1,6 @@
 import './App.css';
-import SortingVisualizer from './components/SortingVisualizer';
 import Header from './components/Header';
+import SortingVisualizer from './components/SortingVisualizer';
 
 function App() {
   return (
